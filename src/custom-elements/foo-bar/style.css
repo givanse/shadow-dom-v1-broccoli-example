@@ -1,0 +1,8 @@
+:host {
+  all: initial; /* 1st rule so subsequent properties are reset. */
+  display: block;
+  contain: content; /* Boom. CSS containment FTW. */
+  background-color: pink;
+  width: 100px;
+  height: 25px;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "shadow-dom-v1-broccoli-example",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "node --nolazy --inspect-brk=9229 node_modules/.bin/broccoli build",
+    "dbuild": "node $NODE_DEBUG_OPTION $(which broccoli) build",
+    "dserve": "node $NODE_DEBUG_OPTION $(which broccoli) serve"
+  },
+  "author": "givanse",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@types/node": "^12.0.12",
+    "broccoli": "^3.1.2",
+    "broccoli-cli": "^1.0.0",
+    "broccoli-rollup": "^4.1.1",
+    "broccoli-stew": "^3.0.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.2"
+  }
+}
