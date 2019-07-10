@@ -2,7 +2,7 @@ import CustomElement from '../../custom-element';
 
 export default class FooBar extends CustomElement {
 
-  static name = 'foo-bar';
+  static tagName = 'foo-bar';
 
   constructor() {
     super();

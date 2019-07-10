@@ -7,11 +7,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch via npm",
-            "cwd": "${workspaceFolder}",
+            "name": "Launch via NPM",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
-                "run-script", "build"
+                "run-script",
+                "debug"
             ],
             "port": 9229
         }

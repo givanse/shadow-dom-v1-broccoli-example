@@ -1,8 +1,10 @@
-const WebComponents = require("broccoli-web-components");
-const funnel = require("broccoli-funnel");
+import BroccoliCustomElements from "broccoli-custom-elements";
+import rollup from "broccoli-rollup";
 const mergeTrees = require("broccoli-merge-trees");
-const Rollup = require("broccoli-rollup");
 const babel = require("rollup-plugin-babel");
+const resolve = require("rollup-plugin-node-resolve");
+const funnel = require("broccoli-funnel");
+const commonjs = require("rollup-plugin-commonjs");
 
 export default function(/*options*/) {
 
@@ -12,37 +14,28 @@ export default function(/*options*/) {
     ]
   });
 
-  const wc = new WebComponents("src/custom-elements", {
-    debugLog: true,
-  });
+  const ce = new BroccoliCustomElements("src/custom-elements");
 
-  const js = new Rollup("src", {
+  const extensions = [".js", ".ts"];
+
+  const js = rollup(".", {
     rollup: {
-      input: "index.js",
-      output: {
-        file: "bundle.js",
-        name: "customElements",
-        format: "iife",
-        sourcemap: true,
-      },
+      input: "src/index.ts",
+      output: [
+        {
+          file: "bundle.iife.js",
+          name: "customElements",
+          format: "iife",
+          sourcemap: true,
+        },
+      ],
       plugins: [
-        babel({
-          exclude: "node_modules/**",
-          presets: [
-            [
-              "@babel/preset-env",
-              {
-                "targets": {
-                  browsers: "chrome 49"
-                }
-              }
-            ]
-          ],
-          plugins: ["@babel/plugin-proposal-class-properties"],
-        })
-      ]
+        commonjs(),
+        resolve({extensions}),
+        babel({extensions})
+      ],
     }
   });
 
-  return mergeTrees([staticFiles, wc, js]);
+  return mergeTrees([staticFiles, js, ce]);
 }

@@ -3,6 +3,4 @@
   display: block;
   contain: content; /* Boom. CSS containment FTW. */
   background-color: pink;
-  width: 100px;
-  height: 25px;
 }
