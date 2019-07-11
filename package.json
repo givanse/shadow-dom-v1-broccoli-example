@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "build": "broccoli build",
+    "watch": "broccoli build --watch",
     "dev": "node_modules/.bin/broccoli build --watch",
     "debug": "node --nolazy --inspect-brk=9229 ./node_modules/.bin/broccoli build"
   },

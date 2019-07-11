@@ -2,14 +2,24 @@
     <head>
       <link id="ce-templates" rel="import" href="custom-elements.html">
       <script src="bundle.iife.js" type="text/javascript"></script>
+      <style>
+        html, body {
+          padding: 5px;
+          background-color: silver;
+        }
+      </style>
     </head>
   <body>
+
     <foo-bar>
-      foo bar
       <lorem-ipsum>nested lorem ipsum</lorem-ipsum>
     </foo-bar>
 
-    <lorem-ipsum>lorem ipsum</lorem-ipsum>
+    <br>
+
+    <lorem-ipsum>
+      <foo-bar>nested foo bar</foo-bar>
+    </lorem-ipsum>
 
   </body>
 </html>
