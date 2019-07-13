@@ -2,7 +2,7 @@
   all: initial; /* 1st rule so subsequent properties are reset. */
   display: block;
   contain: content; /* Boom. CSS containment FTW. */
-  background-color: green;
+  background-color: limegreen;
   width: 50px;
   height: 200px;
 }

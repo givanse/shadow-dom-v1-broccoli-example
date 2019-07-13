@@ -14,11 +14,11 @@ export default function(/*options*/) {
     ]
   });
 
-  const ce = new BroccoliCustomElements("src/custom-elements");
+  const customElements = new BroccoliCustomElements("src/custom-elements");
 
   const extensions = [".js", ".ts"];
 
-  const js = rollup(".", {
+  /*const js = rollup(".", {
     rollup: {
       input: "src/index.ts",
       output: [
@@ -26,7 +26,7 @@ export default function(/*options*/) {
           file: "bundle.iife.js",
           name: "customElements",
           format: "iife",
-          sourcemap: true,
+          sourcemap: false,
         },
       ],
       plugins: [
@@ -35,7 +35,7 @@ export default function(/*options*/) {
         babel({extensions})
       ],
     }
-  });
+  });*/
 
-  return mergeTrees([staticFiles, js, ce]);
+  return mergeTrees([staticFiles, customElements]);
 }
