@@ -3,6 +3,6 @@
   display: block;
   contain: content; /* Boom. CSS containment FTW. */
   background-color: limegreen;
-  width: 50px;
-  height: 200px;
+  width: 250px;
+  height: 75px;
 }

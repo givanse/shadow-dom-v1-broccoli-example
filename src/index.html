@@ -1,6 +1,6 @@
 <html>
     <head>
-      <link rel="import" href="custom-elements.html">
+      <link id="ce-templates" rel="import" href="custom-elements.html">
       <style>
         html, body {
           padding: 5px;
@@ -11,13 +11,15 @@
   <body>
 
     <foo-bar>
-      <lorem-ipsum>nested lorem ipsum</lorem-ipsum>
+      <lorem-ipsum>inside foo-bar</lorem-ipsum>
     </foo-bar>
 
     <br>
+    <br>
+    <br>
 
     <lorem-ipsum>
-      <foo-bar>nested foo bar</foo-bar>
+      <foo-bar>inside lorem-ipsum</foo-bar>
     </lorem-ipsum>
 
   </body>

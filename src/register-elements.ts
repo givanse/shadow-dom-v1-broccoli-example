@@ -13,7 +13,7 @@ function registerCustomElement(CustomElement) {
 
   if (false) {
     // Chrome >= 80
-    // The proposal is to use ES modules, but it isn't a standard.
+    // The proposal is to use ES modules, but we don't know what that looks like yet.
   } else if (window.customElements && window.customElements.define) {
     // Chrome <= 80
     // Deprecated HTML Imports
