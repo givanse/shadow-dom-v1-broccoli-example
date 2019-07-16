@@ -1,7 +1,6 @@
-import CustomElement from '../../custom-element';
+import CustomElement from '../../custom-element.ts';
 
-//export default class LoremIpsum extends HTMLDivElement {
-export default class LoremIpsum extends CustomElement {
+export default class extends CustomElement {
 
   static tagName = 'lorem-ipsum';
   //static extends = 'div';
