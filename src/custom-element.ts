@@ -5,19 +5,22 @@ interface TemplatesHash {
 
 const TEMPLATE_CACHE: TemplatesHash = {};
 
-function importTemplate(templateId: string): Node {
-  const templatesLink = window.document.getElementById('ce-templates');
-
-  //const ceHead = document.currentScript.ownerDocument.head;
+function findTemplate(templateId: string): HTMLTemplateElement {
+  const parentDoc = window.document;
+  const templatesLink = parentDoc.getElementById('ce-templates');
 
   let templates;
   if ('import' in templatesLink) { // HTML Imports, Chrome <= 80
     templates = templatesLink.import;
   }
 
-  const template = templates.querySelector('#' + templateId);
-  //const template = ceHead.querySelector(`template#${templateId}`);
+  return templates.querySelector('#' + templateId);
+}
+
+function importTemplate(templateId: string): Node {
   const deep = true;
+
+  const template = findTemplate(templateId);
   const node = document.importNode(template.content, deep);
 
   TEMPLATE_CACHE[templateId] = node;
@@ -25,9 +28,17 @@ function importTemplate(templateId: string): Node {
   return TEMPLATE_CACHE[templateId];
 }
 
-export default class CustomElement extends HTMLElement {
+class CustomElement extends HTMLElement {
 
   static tagName = 'custom-element';
+
+  constructor() {
+    super();
+  }
+
+  getShadowRoot(): DocumentFragment {
+    throw new Error("`getShadowRoot` is an abstract method and must be overwritten by the an inheriting class");
+  }
 
   // Specify observed attributes so that
   // attributeChangedCallback will work
@@ -35,39 +46,10 @@ export default class CustomElement extends HTMLElement {
     return [];
   }
 
-  constructor() {
-    super();
-  }
-
-  createdCallback() {
-    this.addShadowRoot();
-  }
-
-  connectedCallback() {
-    this.addShadowRoot();
-  }
-
-  disconnectedCallback() {}
-
-  adoptedCallback() {}
-
-  attributeChangedCallback(name: string, oldValue, newValue) {}
-
-  private addShadowRoot() {
-    if (this.shadowRoot) {
-      return;
-    }
-
-    if (this.attachShadow) { // shadow dom v1
-      this.attachShadow({mode: 'open'});
-    } else if (this.createShadowRoot) { // shadow dom v0
-      this.createShadowRoot();
-    }
-    
+  private addTemplateToRoot() {
+    const root = this.getShadowRoot();
     const node = this.getTemplateNode();
-    this.shadowRoot.appendChild(node);
-
-    console.log(`${this.constructor.tagName} connected`, this.shadowRoot);
+    root.appendChild(node);
   }
 
   private getTemplateNode(): Node {
@@ -84,3 +66,60 @@ export default class CustomElement extends HTMLElement {
   }
 
 }
+
+// shadow dom v1
+class CustomElementV0 extends CustomElement {
+
+  constructor() {
+    super();
+  }
+
+  getShadowRoot(): DocumentFragment {
+    if (!this.shadowRoot) {
+      this.createShadowRoot();
+    }
+
+    return this.shadowRoot;
+  }
+
+  // invoked when upgraded from a puny HTMLElement
+  createdCallback() {
+    this.addTemplateToRoot();
+  }
+
+  attachedCallback() {}
+
+  detachedCallback() {}
+
+  attributeChangedCallback(name: string, oldValue, newValue) {}
+}
+
+// shadow dom v1
+//TODO: slots?
+class CustomElementV1 extends CustomElement {
+
+  constructor() {
+    super();
+  }
+
+  getShadowRoot(): DocumentFragment {
+    if (!this.shadowRoot) {
+      this.attachShadow({mode: 'open'});
+    }
+
+    return this.shadowRoot;
+  }
+
+  connectedCallback() {
+    this.addTemplateToRoot();
+  }
+}
+
+let expClass;
+if (HTMLElement.prototype.createShadowRoot) {
+  expClass = CustomElementV0;
+} else if (HTMLElement.prototype.attachShadow) {
+  expClass = CustomElementV1;
+}
+
+export default expClass;
