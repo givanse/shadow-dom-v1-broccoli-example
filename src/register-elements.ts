@@ -25,9 +25,9 @@ function registerCustomElement(CustomElement) {
     // Deprecated Custom Elements V0
     // https://www.chromestatus.com/features/4642138092470272
     parentDoc.registerElement(CustomElement.tagName, CustomElement);
+  } else {
+    throw new Error("No Custom Elements API was found.");
   }
-
-  throw new Error("No Custom Elements API was found.");
 }
 
 function registerCustomElements(customElements) {

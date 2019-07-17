@@ -1,4 +1,4 @@
-const BroccoliCustomElements = require("broccoli-custom-elements").default;
+const broccoliCustomElements = require("./broccoli-custom-elements");
 const mergeTrees = require("broccoli-merge-trees");
 const funnel = require("broccoli-funnel");
 const broccoliRollup = require("broccoli-rollup");
@@ -6,7 +6,7 @@ const babel = require("rollup-plugin-babel");
 const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require("rollup-plugin-commonjs");
 const multiEntry = require("rollup-plugin-multi-entry");
-const BroccoliRegisterElements = require("./broccoli-register-elements.js");
+//const BroccoliRegisterElements = require("./broccoli-register-elements.js");
 const concat = require("broccoli-concat");
 
 module.exports = function(/*options*/) {
@@ -65,7 +65,7 @@ module.exports = function(/*options*/) {
     rollup: rollupConfig
   });
 
-  const customElements = new BroccoliCustomElements("src/custom-elements");
+  const customElements = broccoliCustomElements("src/custom-elements");
 
   const bundles = mergeTrees([customElements, js]);
   const customElementsHTML = concat(bundles, {

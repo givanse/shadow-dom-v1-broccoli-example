@@ -1,8 +1,10 @@
+$foo-bar-color = lightblue
+
 :host {
   all: initial; /* 1st rule so subsequent properties are reset. */
   display: block;
   contain: content; /* Boom. CSS containment FTW. */
-  background-color: limegreen;
-  width: 250px;
-  height: 75px;
+  background-color: $foo-bar-color;
+  width: 300px;
+  height: 50px;
 }

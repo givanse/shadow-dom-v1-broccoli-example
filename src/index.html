@@ -9,6 +9,8 @@
       </style>
     </head>
   <body>
+    <div id="hash"></div>
+    <br>
 
     <foo-bar>
       <lorem-ipsum>inside foo-bar</lorem-ipsum>
@@ -22,5 +24,9 @@
       <foo-bar>inside lorem-ipsum</foo-bar>
     </lorem-ipsum>
 
+    <script>
+      const d = document.getElementById("time");
+      d.innerText = new Date();
+    </script>
   </body>
 </html>
