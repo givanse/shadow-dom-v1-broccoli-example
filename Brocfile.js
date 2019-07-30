@@ -7,6 +7,7 @@ const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require("rollup-plugin-commonjs");
 const multiEntry = require("rollup-plugin-multi-entry");
 //const BroccoliRegisterElements = require("./broccoli-register-elements.js");
+const broccoliRequireContext = require("./broccoli-require-context.js");
 const concat = require("broccoli-concat");
 
 module.exports = function(/*options*/) {
@@ -27,6 +28,12 @@ module.exports = function(/*options*/) {
     annotation: "Register Elements",
   });
   */
+  const registerElements = broccoliRequireContext(["src"], {
+    name: "Require Components",
+    annotation: "Require Components",
+    globs: ["**/*.ts"],
+    targetFile: "register-elements.ts",
+  });
 
   const rollupConfig = {
     input: [
